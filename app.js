@@ -122,6 +122,11 @@ app.get("/directors/", async (request, response) => {
 app.get("directors/:directorId/movies", async (request, response) => {
   const { directorId } = request.params;
   const getMoviesQuery = `
-    
-    `;
+  SELECT 
+    *
+  FROM movie
+    FULL JOIN director 
+    ON movie.director_id = director.director_id;`;
+  const movieNameBySpecificDirector = await db.get(getMovieQuery);
+  response.send(movieNameBySpecificDirector);
 });
