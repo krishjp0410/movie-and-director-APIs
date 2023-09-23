@@ -5,6 +5,7 @@ const path = require("path");
 
 const app = express();
 app.use(express.json());
+module.exports = app;
 const dbPath = path.join(__dirname, "moviesData.db");
 let db = null;
 
@@ -30,11 +31,9 @@ initializeDBAndServer();
 app.get("/movies/", async (request, response) => {
   const getMoviesQuery = `
     SELECT 
-      *
+      movie_name
     FROM 
-      movie
-    ORDER BY 
-      movie_id;`;
+      movie;`;
   const movies = await db.all(getMoviesQuery);
   response.send(movies);
 });
